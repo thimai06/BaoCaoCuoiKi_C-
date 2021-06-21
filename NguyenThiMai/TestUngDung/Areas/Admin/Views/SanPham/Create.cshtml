@@ -1,0 +1,73 @@
+﻿@model ModelEF.Model.SanPham
+
+@{
+    ViewBag.Title = "Thêm Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <b><i class="fa fa-comment text-danger">&nbsp;</i><span class="text-danger">THÊM SẢN PHẨM</span></b>
+
+}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                NHẬP VÀO THÔNG TIN ĐỂ THÊM SẢN PHẨM
+            </div>
+
+            <div style="padding:20px 7px 20px 20px; ">
+                @using (Html.BeginForm("Create", "SanPham", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-row">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.IDSP, new { htmlAttributes = new { @class = "form-check-label " } })
+                            @Html.EditorFor(model => model.IDSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IDSP, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group col-md-8">
+                            @Html.LabelFor(model => model.TenSP, new { htmlAttributes = new { @for = "form-check-label" } })
+                            @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.DonGia, new { htmlAttributes = new { @for = "form-check-label" } })
+                            @Html.EditorFor(model => model.DonGia, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.DonGia, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.SoLuong, new { htmlAttributes = new { @for = "form-check-label" } })
+                            @Html.EditorFor(model => model.SoLuong, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.LoaiSP_ID, new { htmlAttributes = new { @for = "form-check-label" } })
+                            @Html.DropDownListFor(model => model.LoaiSP_ID, ViewBag.LoaiSP_ID as SelectList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 shadow-textarea">
+                        @Html.LabelFor(model => model.MoTa, new { htmlAttributes = new { @for = "form-check-label" } })
+                        <br />
+                        @Html.TextAreaFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" }, id = "txt" })
+                        @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                    </div>
+                    <a class="btn btn-warning" href="/Admin/SanPham/Index" style="margin-left:15px;">
+                        Về danh sách
+                    </a>
+                    <button type="submit" class="btn btn-primary " style="margin-left:15px;">Thêm Sản Phẩm</button>
+
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>CKEDITOR.replace('txt');</script>

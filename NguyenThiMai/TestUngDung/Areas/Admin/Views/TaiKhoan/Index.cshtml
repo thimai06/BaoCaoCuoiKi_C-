@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ModelEF.Model.TaiKhoanNguoiDung>
+
+@using PagedList;
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = " Quản Lý Tài Khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section header{
+    <div style="display:flex;align-items:center;justify-content:center;padding-left:50px">
+        <i class="fa fa-user" style="font-size:30px"> </i>
+        <h3>&nbsp;Quản Lý Tài Khoản</h3>
+    </div>
+}
+
+@using (Html.BeginForm("Index", "taikhoan", FormMethod.Post))
+{
+    <div class="col-lg-12 form-group" style="margin-top:20px">
+        <div class="col-md-6">
+            <p>
+                @Html.ActionLink("Tạo Mới", "Create", "taikhoan", new { @class = "btn btn-danger" })
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <input type="text" value="@ViewBag.SearchString" name="searchString" placeholder="Nhập Từ Khóa cần tìm kiếm" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Tìm Kiếm" class="btn btn-info" />
+        </div>
+    </div>
+}
+<div class="table-responsive">
+    <table class="table  table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center text-primary yellow-bg-prd">STT</th>
+                <th class="text-center text-primary yellow-bg-prd">Mã người dùng</th>
+                <th class="text-center text-primary yellow-bg-prd">Tên người dùng</th>
+                <th class="text-center text-primary yellow-bg-prd">Mật khẩu</th>
+                <th class="text-center text-primary yellow-bg-prd">Trạng thái</th>
+                <th class="text-center text-primary yellow-bg-prd">Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Ma">
+                    <td class="tab-bg-dark-navy-blue" align="center">@i</td>
+                    <td align="center">@item.Ma</td>
+                    <td align="center">@item.Ten</td>
+                    <td align="center">@item.MatKhau</td>
+                    <td align="center">@item.Trangthai  </td>
+                    <td align="center">
+                        @Ajax.ActionLink("Delete", "Delete", new { @id = item.Ma }, new AjaxOptions
+                          {
+                              Confirm = "Bạn có muốn xóa @item.Ten này không?",
+                              OnComplete = "$('#row_" + item.Ma + "').remove()",
+                              HttpMethod = "Delete"
+                          })
+
+                    </td>
+                </tr>
+                i = i + 1;
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }));
+</div>
+
+------------

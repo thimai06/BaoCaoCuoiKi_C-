@@ -1,0 +1,51 @@
+﻿@model ModelEF.Model.SanPham
+
+@{
+    ViewBag.Title = "Chi Tiết SP";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    <b><i class="fa fa-list-alt text-danger">&nbsp;</i><span class="text-danger">  Chi Tiết SP</span></b>
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                CHI TIẾT SẢN PHẨM   <b class="text-danger">@Model.TenSP</b>
+            </div>
+            <div style="padding:20px 7px 50px 20px; ">
+                <div class="table-responsive">
+                    <table class="table  table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center text-primary yellow-bg-prd">ID</th>
+                                <th class="text-center text-primary yellow-bg-prd">Tên Sản Phẩm</th>
+                                <th class="text-center text-primary yellow-bg-prd">Đơn Giá</th>
+                                <th class="text-center text-primary yellow-bg-prd">Số Lượng</th>
+                                <th class="text-center text-primary yellow-bg-prd">LoạiSP_ID</th>
+                                <th class="text-center text-primary yellow-bg-prd">Mô Tả</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr id="row_@Model.IDSP">
+                                <td align="center">@Model.IDSP</td>
+                                <td>@Model.TenSP</td>
+                                <td>@Html.FormatValue(@Model.DonGia, " {0:0,0 VNĐ}")</td>
+                                <td align="center">@Model.SoLuong</td>
+                                <td align="center">@Model.LoaiSP_ID</td>
+                                <td>@Html.Raw(Model.MoTa)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="@Url.Action("Index")" class="btn btn-danger">Back to List</a>
+                            <a href="/Admin/SanPham/Edit/@Model.IDSP" class="btn btn-primary">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
